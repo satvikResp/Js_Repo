@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Chai aur javascript</h1>
+    <button id="start">Start</button>
+    <button id="stop">stop</button>
+</body>
+<script>
+ //-------------------------------------------------------------------------------------------------------------------------------------------------   
+    
+    //setInterval()  method
+    
+    //setInterval(function(){},2000) ye ek interval ke baad continuously ek kaam krta jata hai
+/*
+    setInterval(function(){
+        console.log("satvik",Date.now());
+    },1000)  
+
+    ye chlta hi jayega non stop
+*/
+    //same setTimeout ki trh function ka reference pass bhi kr skte hai hum isme bhi
+    //** and isme parameters bhi pass krskte hai hum us function ke liye
+
+    const sayDate=function(words){
+        console.log(words,Date.now())
+    }
+    let intervalId;
+    document.querySelector('#start').addEventListener('click',function(e){
+        intervalId=setInterval(sayDate,1000,"Hii")
+    })
+     
+
+    //ab isko kese rokenge  ---> clearInterval se
+    document.querySelector('#stop').addEventListener('click',function(e){
+        clearInterval(intervalId)
+    })
+    
+</script>
+</html>

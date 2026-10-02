@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Chai aur Code</h1>
+    <button id="stop">stop</button>
+</body>
+<script>
+//---------------------------------------------------------------------------------------------
+
+    //setTimeout() method
+
+    //setTImeout(function(){},2000)  ye function ko handler bolte hai and agle parameter ko timeout jisme milisecond me time likhte hai
+// working -> itne der ka mujhe time do and phir kaam krunga
+    setTimeout(function(){
+        console.log('satvik');
+    },2000) 
+    //ye kya krega : satvik print krdega 2 second ke baad 
+
+/* hum ek function ka refernce bhi  pass krskte hai setTimeouit me rather than vhin ek function bnane ki jgah
+    const myfunc=function(){
+        console.log('satvik');
+    }
+    setTimeout(myfunc,1000);
+*/    
+
+//timeout ko kese rok skte hai 
+    const changeText=function(){
+        document.querySelector('h1').innerHTML="best JS course"
+    }
+    const changeMe=setTimeout(changeText,2000)  //changeText likha hai changeText() likhke call nhi lgayi hai
+    //isko kese rokenge  -->we use clearTimeout
+
+/*sirf clearTImeout() ase likhke nhi hatega kyunki bhot sare timeout ho skte hai to hume reference dena pdega ki konsa remove krna hai
+    clearTimeout(changeMe) //ase ho jayega
+*/
+
+
+// Q ->stop button pe click krke kese rokenge
+
+    document.querySelector('#stop').addEventListener('click',function(){
+        clearTimeout(changeMe); //->ab change nhi hoga chai aur code best js course me agar do second ke andr webpage kholne ke hamne stop print krdiya to 
+        console.log('STOPPED')
+    })
+
+//---------------------------------------------------------------------------------------------------------
+
+
+
+
+</script>
+</html>

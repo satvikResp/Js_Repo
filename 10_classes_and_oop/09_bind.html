@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+</head>
+<body>
+    <button>Button Clicked</button>
+</body>
+<script>
+    class React {
+        constructor(){
+            this.library = "React"
+            this.server = "https://localhost:300"
+
+            //requirement ->button ka reference mil jaye and  click krne  pe button clicked consolelog ho jaye
+            document
+                .querySelector('button')
+                .addEventListener('click', this.handleClick.bind(this))  //bina bind kiye undefined milega console.log(server) me
+        }
+        handleClick(){
+            console.log("button clicked");
+            console.log(this.server);
+        }
+    }
+
+    const app = new React()
+</script>
+</html>
+
+// Event listener ke andar normal function ka this,
+// by default us element ko refer karta hai jisne event trigger kiya hai.
+
+// Agar hume event-triggering element (jaise button) ke instead
+// apne object/class ka this chahiye, to bind(this) use karte hain.
+
+// bind(this) function ke this ko specified object par fix kar deta hai.
+
+// Without bind:
+// this -> button
+
+// With bind(this):
+// this -> User object
+
+aur ye kaam , call() se bhi this de sakte ho, but event listener ke case mein directly call() use nahi kar sakte.
+
+Reason:
+
+button.addEventListener("click", this.handleClick.call(this));
+
+Yahan .call(this) abhi immediately handleClick() chala dega.
+
+But addEventListener ko chahiye:
+
+function jo baad mein click hone par chale.
+
+Isliye bind() use karte hain
+
+
+//ab ye nhi use krn apdta hai bind ab

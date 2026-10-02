@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color:#212121">
+    
+</body>
+<script>
+
+//purana way of sending api request -> XMLHttpRequest => it can be used to retrieve any type of data not just XML
+//ye ajax programming hai -->ajax is not a technology in itself but rather an approach to using a number of existing technologies together like HTML or XHTML,css,JavaScript,DOM and XMLHttpRequest object
+
+//isme hamare paas constructor hote hai like readyState ,response etc
+
+//ReadyState ke andar 5 states hoti hai : UNSENT, OPENED, HEADERS_RECEIVED, LOADING, DONE
+ /*
+     Value   State     Description
+
+        0	UNSENT	Client has been created. open() not called yet.
+        1	OPENED	open() has been called.
+        2	HEADERS_RECEIVED	send() has been called, and headers and status are available.
+        3	LOADING	Downloading; responseText holds partial data.
+        4	DONE	The operation is complete.
+ */
+
+    const requestUrl = 'https://api.github.com/users/hiteshchoudhary'
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', requestUrl)
+    xhr.onreadystatechange = function(){
+        console.log(xhr.readyState);
+        if (xhr.readyState === 4) {
+            const data = JSON.parse(this.responseText)
+            console.log(typeof data);
+            console.log(data.followers);
+        }
+    }
+    xhr.send();
+
+/* summary
+XMLHttpRequest → old API request method
+open() → request configure karta hai
+send() → request bhejta hai
+readyState → request ki current state
+responseText → server ka response
+JSON.parse() → JSON string → JavaScript object
+*/
+
+
+</script>
+</html>

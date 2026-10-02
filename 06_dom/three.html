@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chai aur code</title>
+</head>
+<body style="background-color:black;color:white">
+    <ul class="language">
+        <li>javascript</li>
+
+    </ul>
+</body>
+<script>
+    //add a list item 
+
+    //hum function bnake krenge ek list add
+
+    function addLanguage(langName){
+       const uls= document.querySelectorAll('.language');
+       const addlist=document.createElement('li');
+       addlist.innerText=langName;
+       //or addlist.innerHTML=`${langName}`
+       uls[0].append(addlist)
+    }
+    addLanguage('rust')
+    addLanguage('python')
+
+
+    //ye ase bnara hai list naya but pura tree traverse krrhe hai hum isme har baar jab bhi naya list addkrrhe hai
+    //and ye chij bahut sari agar values add krni hogi to uske liye inefficient hai 
+
+    //better way/optimized way
+
+    function addOptiLang(langName){
+        const li =document.createElement('li');
+        li.append(document.createTextNode(langName))
+        document.querySelector('.language').append(li)
+    }
+    addOptiLang('cpp')
+
+
+    //Edit kese krenege in values ko
+
+    const secondLang=document.querySelector("li:nth-child(2)")  //ye hame second child select krvadega
+    //secondLang.innerHTML=('Mojo') //-->isse rust ki jgah mojo aajayega....
+    //but ye optimized nhi hai isliye isko use nhi krenge
+
+    //hum ek naya list bnayenge aur usko replace krenge rust ke sth using replaceWith
+
+    const newLi=document.createElement('li')
+    const lang=document.createTextNode('Mojo')
+    newLi.append(lang)
+    secondLang.replaceWith(newLi)
+
+    //ek aur method 
+    const firstLang=document.querySelector("li:first-child")
+    firstLang.outerHTML='<li>TypeScript</li>'
+
+    //remove kese krenge
+    const lastLang=document.querySelector('li:last-child')
+    lastLang.remove()
+
+</script>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chai aur code</title>
+</head>
+<body style="background-color: black; color:white">
+    
+</body>
+<script>
+    //js se div kese banate hai
+    //we use document.createElement('element we want to create')
+
+    const div=document.createElement('div');
+    console.log(div);
+
+    // const h1=document.createElement('h1')
+    // console.log(h1);
+   
+    //properties add krna jese ki id ,class is created div pe 
+
+// ye id and class jo hai bydefault attributes hai ...because of high usage 
+    
+    div.className='main' //class nhi className hi likhn apdta hai ...js isko ase hi pdhta hai
+    div.id='myId'
+
+//aur attributes kese add krein --> we use setAttribute()
+
+    div.setAttribute('title','generated title') //this is better because of its working .... ye value ko call krke change nhi krta ..location pe jake hi change krdeta hai 
+    //stylling kese krein 
+    div.style.backgroundColor='green'
+    div.style.padding='12px'
+    // div.innerText="chai aur code"  // ye call krega value ko ,usko overwrite krega /set krega 
+//so we use this  ->
+    const addText=document.createTextNode("chai aur code")
+// ye abhi bhi page pe display nhi hore honge because ye memory me hi bne hai abhi,abhi page se attach nhi kiye...
+// How is this attaching done using .appendChild  => (khan jodre ho vo jgah ).appendChild( kya jodre ho vo chij )
+    div.appendChild(addText)
+    document.body.appendChild(div)
+
+</script>
+</html>

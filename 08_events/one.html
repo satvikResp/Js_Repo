@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>htnml Events </title>
+</head>
+<body style="background-color: #414141; color: aliceblue;">
+    <h2>Amazing image</h2>
+    <div >
+        <ul id="images">
+            <li><img width="200px" id="photoshop" src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="photoshop"></li>
+            <li><img width="200px" id="japan" src="https://images.pexels.com/photos/3532553/pexels-photo-3532553.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><img width="200px" id="river" src="https://images.pexels.com/photos/3532551/pexels-photo-3532551.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><img width="200px" id="owl" src="https://images.pexels.com/photos/3532552/pexels-photo-3532552.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="" ></li>
+            <li><img width="200px" id="prayer" src="https://images.pexels.com/photos/2522671/pexels-photo-2522671.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><a style="color: aliceblue;" href="https://google.com" id="google">Google</a></li>
+        </ul>
+   </div>
+</body>
+<script>
+    
+    //JavaScript normally synchronous, single-threaded execution follow karti hai, but Web APIs + event loop ki help se asynchronous operations handle kar sakti hai.
+    //Event hone ke baad uska callback later execute ho sakta hai, isliye event handling asynchronous behavior provide kar sakti hai.
+
+    /*  old method of using event
+     document.getElementById('owl').onclick = function(){
+         alert("owl clicked")
+     }
+
+    isko ab use nhi krte: kyunki iski kuch problems ho skti hai jese ki jyada information nhi milti hai isse or iske kam features hain
+    isleye hum event listner use krte hai
+*/
+
+// events syntax me : 3 parameters hote hai -> event ,callback ,(options =>false or true value {by default it is set to false so likhene ki zrurat nhi false ke time})
+    //document.querySelector('#owl').addEventListener('click',function(){
+    //    alert(`owl clicked again`);
+    // },false)    
+    
+    document.querySelector('#owl').addEventListener('click',function(e){
+    console.log(e);
+    },false)  
+     
+/* Event object properties
+     -> type ,timestamp,preventDefault ,target,toElement ,srcElement ,currrentTarget
+     -> clientX, clientY, screenX, screenY  } all these for Coordinates
+     -> altKey ,ctrl,Key ,shiftKey ,keyCode } Modifier keys where keyCode like e.key is depreceated
+    
+*/
+//------------------------------EVENT PROPOGATION-------------------------------
+
+//Event Propogation -> two context hote hai : Event Bubbling and Event Capturing
+//jyada tar bubbling use hota hai kyunki vo default hai
+
+//--------------------------
+    document.querySelector('#images').addEventListener('click',function(e){
+        console.log(`clicked inside the ul`);
+    },false); //->ispe click krenge to likh kje ayega clicked on ui 
+
+    document.querySelector('#owl').addEventListener('click',function(e){
+        console.log(`owl clicked`); //agar ispe click krenge to phle likh ke ayega owl clicked and then clicked inside the ul 
+        // ye show krrha hai event bubbling ->neeche se upar gya/inside to outside event propogation hui
+    },false);
+//---------------------------
+    document.querySelector('#owl').addEventListener('click',function(e){
+        console.log(`owl clicked`); //agar ispe click krenge to phle likh ke ayega clicked inside the ul and then owl clicked 
+        // ye show krrha hai event capturing ->uper se neeche gya/outside  to inside event propogation hui
+    },true);
+
+
+    //jab bubbling nhi chaiye   ... -> we use e.stopPropogation()
+
+    document.querySelector('#owl').addEventListener('click',function(e){
+        console.log(`owl clicked`); 
+        e.stopPropagation() //->sirf owl clicked hi likh ke ayega
+    },false); 
+
+//---------------------------------PREVENT DEFAULT------------------------------------------
+    //preventdefault  ->Browser ka jo default action hona tha, usko rokdeta hai .
+//jese agar google pe click krenge to to google khul jayega page me 
+//but ye preventdefault lgake vo nhi khulega
+    document.querySelector('#google').addEventListener('click',function(e){
+        e.preventDefault();
+        console.log(`goooglle clicked`);
+        // e.stopPropagation()
+    },false)
+
+//--------------------------------------------------------------------------------------------------
+
+    /*ab jese hi kisi image pe click krein vo image gayab ho jaye asse kese krenge 
+
+    ek-ek krke sari image id pe event listner lga skte hai but length ho jayega agar bhot sari images hongi.
+
+    to hum ul pe krenge ..jisme sari images hai
+    */
+
+    document.querySelector('#images').addEventListener('click',function(e){
+ //     console.log(e.traget)// ->ye hame batata hai ki kis chij ki vajah se event occour hua hai | jese is case me vo hume image element dega pura kyunki uspe click kiya isleye event occour hua
+        //but hume ab pura image hatana hai to sirf iamge nhi jis element ke andr vo hai mtlb list li vo bhi chaiye ... vo uska parent hai ... vo kese milega -> e.target.parentNode se
+        console.log(e.target.parentNode);
+        if(e.target.tagName==='IMG'){
+        let eletoremove=e.target.parentNode;
+        eletoremove.remove() //->remove method se remove krdiya 
+        }//ek method aur hai :  eletoremove.parentNode.removeChild(eletoremove)
+    })
+//*** but abhi kya hoga ki agar hum list pe click krenge to uska parent mtlb ul aajayega to remove me and saari images ek sath remove ho jayenge 
+//iski rokne ke liye hum if else use kr skte hai and tagName se tag niklenge element ka and sirf li (list) ko hi remove hone denge
+
+/*
+Yahan owl wali image remove nahi ho rahi hai kyunki `#owl` par bhi ek event listener laga hua hai, jisme humne `e.stopPropagation()` use kiya hai. 
+Iski wajah se click event `#images` (UL) wale parent element tak bubble nahi hota, isliye `#images` ka remove wala event listener execute nahi hota.
+*/
+
+</Script>
+</html>
